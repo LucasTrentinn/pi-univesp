@@ -18,6 +18,10 @@ bun dev
 
 Abra [http://localhost:3000](http://localhost:3000) no seu browser para ver o resultado e se divirta :D
 
+## Banco de dados
+
+O projeto foi feito utilizando SqLite3 e, por isso, recomendamos a instalação de alguma [extensão](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer) que auxilie na visualização do arquivo dados.db!
+
 ## Testar em produção
 
 Foi feito um deploy em produção utilizando a Vercel para possibilitar testes e viualização do projeto rodando.
