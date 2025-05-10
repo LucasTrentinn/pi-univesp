@@ -12,7 +12,7 @@ export default function Home() {
 			<Navbar />
 			<div className="container mt-5">
 				<div className="d-flex justify-content-between align-items-center mb-4">
-					<h2 className="mb-0">Cadastrar Livro</h2>
+					<h2 className="mb-0">Adicionar Livro</h2>
 					
 					<div className="d-flex gap-3">
 						<Link href="/livros" passHref>
