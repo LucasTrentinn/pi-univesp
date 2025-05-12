@@ -40,10 +40,6 @@ export default function Home() {
 				</div>
 				<form>
 					<div className="row">
-						<div className="form-group col-md-2">
-							<label htmlFor="userid">UserID</label>
-							<input type="text" className="form-control" id="userid" />
-						</div>
 						<div className="form-group col-md-6">
 							<label htmlFor="nome">Nome</label>
 							<input type="text" className="form-control" id="nome" />

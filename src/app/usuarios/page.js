@@ -26,7 +26,7 @@ export default function Home() {
 				<table className="table table-striped table-bordered">
 					<thead>
 						<tr>
-							<th width="80" className="text-center">UserID</th>
+							<th width="80" className="text-center">Id</th>
 							<th className="text-center">Nome</th>
 							<th width="35%" className="text-center">Extra</th>
 							<th width="80" className="text-center">Status</th>
