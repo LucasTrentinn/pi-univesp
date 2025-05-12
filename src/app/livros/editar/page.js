@@ -74,7 +74,7 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="row">
-						<div className="form-group col-md-3">
+						<div className="form-group col-md-4">
 							<label htmlFor="localizacao">Localização</label>
 							<input type="text" className="form-control" id="localizacao" />
 						</div>
@@ -82,14 +82,8 @@ export default function Home() {
 							<label htmlFor="prazoEmprestimo">Prazo Empréstimo</label>
 							<input type="number" className="form-control" id="prazoEmprestimo" />
 						</div>
-						<div className="form-group col-md-2">
-							<label htmlFor="situacao">Situação</label>
-							<select className="form-control" id="situacao" defaultValue="">
-								<option value="1">Livre</option>
-								<option value="2">Locado</option>
-							</select>
-						</div>
-						<div className="form-group col-md-2">
+						
+						<div className="form-group col-md-3">
 							<label htmlFor="idioma">Idioma</label>
 							<input type="text" className="form-control" id="idioma" />
 						</div>
@@ -103,7 +97,7 @@ export default function Home() {
 							<label htmlFor="categoria">Categoria</label>
 							<input type="text" className="form-control" id="categoria" />
 						</div>
-						<div className="form-group col-md-3">
+						<div className="form-group col-md-5">
 							<label htmlFor="assunto">Assunto</label>
 							<input type="text" className="form-control" id="assunto" />
 						</div>
@@ -115,11 +109,36 @@ export default function Home() {
 							<label htmlFor="colecaoVolume">Coleção/Volume</label>
 							<input type="text" className="form-control" id="colecaoVolume" />
 						</div>
+					</div>
+					
+					<div className="row">
 						<div className="form-group col-md-2">
+							<label htmlFor="situacao">Situação</label>
+							<select className="form-control" id="situacao" defaultValue="">
+								<option value="1">Livre</option>
+								<option value="2">Locado</option>
+							</select>
+						</div>
+
+						<div className="form-group col-md-4">
+							<label htmlFor="leitor">Leitor</label>
+							<select className="form-control" id="leitor" defaultValue="">
+								<option value="1">Gabriel</option>
+								<option value="2">Lucas</option>
+							</select>
+						</div>
+
+						<div className="form-group col-md-2">
+							<label htmlFor="data-locacao">Data de Locação</label>
+							<input type="date" className="form-control" id="data-locacao" />
+						</div>
+
+						<div className="form-group col-md-4">
 							<label htmlFor="extra">Extra</label>
 							<input type="text" className="form-control" id="extra" />
 						</div>
 					</div>
+
 					<div className="form-group">
 						<label htmlFor="resenha">Resenha</label>
 						<textarea className="form-control" id="resenha" rows="3"></textarea>
