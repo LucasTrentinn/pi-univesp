@@ -80,21 +80,24 @@ async function initDb() {
     CREATE TABLE IF NOT EXISTS TB_LIVROS (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       titulo TEXT NOT NULL,
-      id_autor INTEGER NOT NULL,
+      id_autor TEXT NOT NULL,
       tradutores TEXT,
-      id_editora INTEGER NOT NULL,
+      id_editora TEXT NOT NULL,
       edicao INTEGER NOT NULL,
       ano INTEGER NOT NULL,
       codigo_barras TEXT NOT NULL,
       isbn TEXT NOT NULL,
-      id_cdd INTEGER NOT NULL,
+      id_cdd TEXT NOT NULL,
       idioma TEXT NOT NULL,
       colecao_volume TEXT,
+      locado TEXT,
       extra TEXT,
       observacao TEXT,
       fl_ativo INTEGER,
       fl_tombado TEXT,
       dt_inserido DATETIME NOT NULL,
+      id_pessoa INTEGER,
+      FOREIGN KEY (id_pessoa) REFERENCES TB_PESSOAS(id),
       FOREIGN KEY (id_autor) REFERENCES TB_AUTOR(id),
       FOREIGN KEY (id_editora) REFERENCES TB_EDITORA(id),
       FOREIGN KEY (id_cdd) REFERENCES TB_CDD(id)
@@ -117,6 +120,33 @@ async function initDb() {
   `);
 
   console.log("Banco de dados inicializado com sucesso!");
+
+  // Cria usuário administrador padrão
+  const adminPessoa = await db.get(`SELECT * FROM TB_PESSOAS WHERE cpf = ?`, ["00000000000"]);
+  if (!adminPessoa) {
+    // Insere pessoa admin
+    const resultPessoa = await db.run(
+      `INSERT INTO TB_PESSOAS (
+        nome, nome_responsavel, cpf, nascimento, telefone, email, redes_sociais, endereco,
+        numero, complemento, cep, cidade, uf, dt_inserido
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
+      ["admin", "admin", "00000000000", "2000-01-01", "0000000000", "admin@admin.com", "admin", "Rua Admin", "0", "", "00000000", "AdminCity", "AD"]
+    );
+
+    const idPessoa = resultPessoa.lastID;
+
+    // Insere login admin
+    await db.run(
+      `INSERT INTO TB_LOGIN (
+        id_pessoa, login, senha, fl_ativo, fl_administrador, dt_inserido
+        ) VALUES (?, ?, ?, ?, ?, datetime('now'))`,
+      [idPessoa, "admin", "admin", 1, 1]
+    );
+
+    console.log("Usuário admin criado.");
+  } else {
+    console.log("Usuário admin já existe.");
+  }
   return db;
 }
 

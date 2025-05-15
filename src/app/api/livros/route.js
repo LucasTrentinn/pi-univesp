@@ -5,15 +5,50 @@ export async function POST(req) {
 
   try {
     const body = await req.json();
-    const { titulo, id_autor, id_editora, ano, edicao, isbn, codigo_barras, idioma, id_cdd, colecao_volume, extra, observacao } = body;
+    const {
+      titulo,
+      id_autor,
+      tradutores,
+      id_editora,
+      ano,
+      edicao,
+      isbn,
+      codigo_barras,
+      idioma,
+      id_cdd,
+      colecao_volume,
+      extra,
+      observacao,
+      fl_ativo,
+      fl_tombado,
+      locado,
+    } = body;
 
+    // Inserção dos dados na tabela TB_LIVROS
     await db.run(
       `INSERT INTO TB_LIVROS (
-        titulo, id_autor, id_editora, ano, edicao,
-        isbn, codigo_barras, idioma, id_cdd, colecao_volume,
-        extra, observacao, dt_inserido
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
-      [titulo, id_autor, id_editora, ano, edicao, isbn, codigo_barras, idioma, id_cdd, colecao_volume, extra, observacao]
+        titulo, id_autor, tradutores, id_editora, ano, edicao,
+        isbn, codigo_barras, idioma, id_cdd,
+        colecao_volume, extra, observacao, fl_ativo, fl_tombado, dt_inserido, locado
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), ?)`,
+      [
+        titulo,
+        id_autor,
+        tradutores,
+        id_editora,
+        ano,
+        edicao,
+        isbn,
+        codigo_barras,
+        idioma,
+        id_cdd,
+        colecao_volume,
+        extra,
+        observacao,
+        fl_ativo,
+        fl_tombado,
+        locado,
+      ]
     );
 
     return new Response(JSON.stringify({ message: "Livro cadastrado com sucesso!" }), {
@@ -34,14 +69,10 @@ export async function GET() {
 
   try {
     const livros = await db.all(`
-      SELECT l.id, l.titulo, a.ds_autor as autor, e.ds_editora as editora,
-             l.ano, l.edicao, l.isbn, l.codigo_barras, l.idioma,
-             c.ds_assunto || ' / ' || c.ds_categoria || ' / ' || c.ds_genero AS cdd,
-             l.colecao_volume, l.extra, l.observacao
+      SELECT l.id, l.titulo, l.id_autor, l.tradutores, l.id_editora, l.ano, l.edicao, 
+             l.isbn, l.codigo_barras, l.idioma, l.colecao_volume, l.extra, l.observacao, 
+             l.fl_ativo, l.fl_tombado, l.id_cdd, l.dt_inserido, l.locado
       FROM TB_LIVROS l
-      JOIN TB_AUTOR a ON l.id_autor = a.id
-      JOIN TB_EDITORA e ON l.id_editora = e.id
-      JOIN TB_CDD c ON l.id_cdd = c.id
     `);
 
     return new Response(JSON.stringify(livros), {
