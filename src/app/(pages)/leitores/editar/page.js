@@ -5,11 +5,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Navbar from "../../../../components/navbar.js";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
 export default function EditarLeitor() {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  const [id, setId] = useState(null);
+
+  useEffect(() => {
+    const search = new URLSearchParams(window.location.search);
+    setId(search.get("id"));
+  }, []);
 
   const [formData, setFormData] = useState({
     nome: "",
