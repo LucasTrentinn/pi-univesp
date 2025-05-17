@@ -104,7 +104,7 @@ export default function Leitores() {
                     <td>{leitor.cidade}</td>
                     <td className="text-center">
                       <Link
-                        href={`/leitores/editar?id=${leitor.id}`}
+                        href={`/leitores/${leitor.id}`}
                         passHref>
                         <button
                           className="btn btn-sm btn-primary"

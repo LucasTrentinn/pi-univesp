@@ -4,18 +4,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Navbar from "../../../../components/navbar.js";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function EditarLivro() {
   const router = useRouter();
-
-  const [id, setId] = useState(null);
-
-  useEffect(() => {
-    const search = new URLSearchParams(window.location.search);
-    setId(search.get("id"));
-  }, []);
+  const { id } = useParams();
 
   const [livro, setLivro] = useState({
     titulo: "",

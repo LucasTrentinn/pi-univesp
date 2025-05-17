@@ -132,7 +132,7 @@ export default function Livros() {
                     </td>
                     <td>
                       <Link
-                        href={`/livros/editar?id=${livro.id}`}
+                        href={`/livros/${livro.id}`}
                         passHref>
                         <button
                           className="btn btn-sm btn-primary"

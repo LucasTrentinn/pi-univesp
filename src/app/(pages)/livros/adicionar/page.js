@@ -105,7 +105,7 @@ export default function Home() {
               />
             </div>
             <div className="form-group col-md-3">
-              <label htmlFor="id_autor">ID Autor</label>
+              <label htmlFor="id_autor">Autor</label>
               <input
                 type="text"
                 className="form-control"
@@ -115,7 +115,7 @@ export default function Home() {
               />
             </div>
             <div className="form-group col-md-3">
-              <label htmlFor="id_editora">ID Editora</label>
+              <label htmlFor="id_editora">Editora</label>
               <input
                 type="text"
                 className="form-control"
@@ -181,7 +181,7 @@ export default function Home() {
               />
             </div>
             <div className="form-group col-md-3">
-              <label htmlFor="id_cdd">ID CDD</label>
+              <label htmlFor="id_cdd">CDD</label>
               <input
                 type="text"
                 className="form-control"

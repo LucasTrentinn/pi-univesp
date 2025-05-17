@@ -1,7 +1,7 @@
-// app/api/livros/[id]/route.js
 import initDb from "@/init-db";
 
-export async function GET(req, { params }) {
+export async function GET(req, context) {
+  const { params } = context;
   const id = params?.id;
   const db = await initDb();
 

@@ -5,14 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Navbar from "../../../../components/navbar.js";
 import Link from "next/link";
+import { useParams } from "next/navigation.js";
 
 export default function EditarLeitor() {
-  const [id, setId] = useState(null);
-
-  useEffect(() => {
-    const search = new URLSearchParams(window.location.search);
-    setId(search.get("id"));
-  }, []);
+  const { id } = useParams();
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -26,24 +22,39 @@ export default function EditarLeitor() {
     senha: "",
   });
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    if (id) {
-      fetch(`/api/usuarios/${id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setFormData({
-            nome: data.nome ?? "",
-            nome_responsavel: data.nome_responsavel ?? "",
-            nascimento: data.nascimento?.slice(0, 10) ?? "",
-            telefone: data.telefone ?? "",
-            endereco: data.endereco ?? "",
-            cidade: data.cidade ?? "",
-            cep: data.cep ?? "",
-            login: data.login ?? "",
-            senha: "",
-          });
+    const carregarDados = async () => {
+      try {
+        if (!id) throw new Error("ID do leitor não fornecido");
+
+        const res = await fetch(`/api/usuarios/${id}`);
+        if (!res.ok) throw new Error("Erro ao buscar dados do leitor");
+
+        const data = await res.json();
+
+        setFormData({
+          nome: data.nome ?? "",
+          nome_responsavel: data.nome_responsavel ?? "",
+          nascimento: data.nascimento?.slice(0, 10) ?? "",
+          telefone: data.telefone ?? "",
+          endereco: data.endereco ?? "",
+          cidade: data.cidade ?? "",
+          cep: data.cep ?? "",
+          login: data.login ?? "",
+          senha: "", // senha não vem do back
         });
-    }
+
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    carregarDados();
   }, [id]);
 
   const handleChange = (e) => {
@@ -70,6 +81,39 @@ export default function EditarLeitor() {
       alert("Erro ao atualizar.");
     }
   };
+
+  if (loading) {
+    return (
+      <div>
+        <Navbar />
+        <div className="container mt-5 d-flex justify-content-center">
+          <div
+            className="spinner-border"
+            role="status">
+            <span className="visually-hidden">Carregando...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div>
+        <Navbar />
+        <div className="container mt-5">
+          <div
+            className="alert alert-danger"
+            role="alert">
+            {error}
+          </div>
+          <Link href="/livros">
+            <button className="btn btn-primary">Voltar</button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

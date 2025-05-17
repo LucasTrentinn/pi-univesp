@@ -1,8 +1,9 @@
 import initDb from "@/init-db";
 
-export async function GET(req, { params }) {
-  const db = await initDb();
+export async function GET(req, context) {
+  const { params } = context;
   const id = params?.id;
+  const db = await initDb();
 
   try {
     const pessoa = await db.get("SELECT * FROM TB_PESSOAS WHERE id = ?", [id]);
